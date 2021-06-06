@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 /*
+ * Classe de exemplo para empacotar o payload em XML
  * @JacksonXmlRootElement é uma alternativa à @JsonRootName e 
  * @JacksonXmlProperty à @JsonProperty.
  * 
