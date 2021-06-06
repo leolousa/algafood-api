@@ -10,10 +10,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cozinha {
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Estado {
+	
 	@Id
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
