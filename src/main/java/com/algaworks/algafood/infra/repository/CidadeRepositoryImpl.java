@@ -9,8 +9,6 @@ import javax.transaction.Transactional;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.algaworks.algafood.domain.model.Cidade;
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
 
 public class CidadeRepositoryImpl implements CidadeRepository {
