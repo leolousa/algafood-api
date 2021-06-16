@@ -46,7 +46,7 @@ public class Restaurante {
 	
 	//@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("hibernateLazyInitializer")
+	//@JsonIgnoreProperties("hibernateLazyInitializer")
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 	
@@ -68,7 +68,7 @@ public class Restaurante {
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento",
 			joinColumns = @JoinColumn(name = "restaurante_id"),
