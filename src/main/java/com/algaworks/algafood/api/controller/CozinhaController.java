@@ -56,8 +56,7 @@ public class CozinhaController {
 	public Cozinha atualizar(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha) {
 		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 
-		BeanUtils.copyProperties(cozinha, cozinhaAtual, "id"); // Copia as propriedades de um objeto para outro,
-																// ignorando o ID
+		BeanUtils.copyProperties(cozinha, cozinhaAtual, "id"); // Copia as propriedades de um objeto para outro, ignorando o ID
 		return cadastroCozinha.salvar(cozinhaAtual);
 
 	}

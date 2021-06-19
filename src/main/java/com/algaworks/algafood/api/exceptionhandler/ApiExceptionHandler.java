@@ -1,0 +1,69 @@
+package com.algaworks.algafood.api.exceptionhandler;
+
+import java.time.LocalDateTime;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.NegocioException;
+
+@ControllerAdvice
+public class ApiExceptionHandler {
+
+	@ExceptionHandler(EntidadeNaoEncontradaException.class)
+	public ResponseEntity<?> tratarEntidadeNaoEncontradoException(EntidadeNaoEncontradaException e) {
+		Problema problema = Problema.builder()
+				.dataHora(LocalDateTime.now())
+				.mensagem(e.getMessage()).build();
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(problema);
+	}
+	
+	@ExceptionHandler(EntidadeEmUsoException.class)
+	public ResponseEntity<?> tratarEntidadeEmUsoException(EntidadeEmUsoException e) {
+		Problema problema = Problema.builder()
+				.dataHora(LocalDateTime.now())
+				.mensagem(e.getMessage()).build();
+		
+		return ResponseEntity.status(HttpStatus.CONFLICT)
+				.body(problema);
+	}
+	
+	@ExceptionHandler(NegocioException.class) // Customizar a exception
+	public ResponseEntity<?> tratarNegocioException(NegocioException e) {
+		Problema problema = Problema.builder()
+				.dataHora(LocalDateTime.now())
+				.mensagem(e.getMessage()).build();
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.body(problema);
+	}
+	
+	@ExceptionHandler(HttpMediaTypeNotSupportedException.class) // Tratar exception do próprio Spring
+	public ResponseEntity<?> tratarHttpMediaTypeNotSupportedException() {
+		Problema problema = Problema.builder()
+				.dataHora(LocalDateTime.now())
+				.mensagem("O tipo de mídia não é aceito").build();
+		
+		return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+				.body(problema);
+	}
+	
+	@ExceptionHandler(HttpMessageNotReadableException.class) // Tratar exception do próprio Spring
+	public ResponseEntity<?> tratarHttpMessageNotReadableException() {
+		Problema problema = Problema.builder()
+				.dataHora(LocalDateTime.now())
+				.mensagem("Requisição enviada em formato diferente de JSON. Erro de conversão.").build();
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.body(problema);
+	}
+	
+}
