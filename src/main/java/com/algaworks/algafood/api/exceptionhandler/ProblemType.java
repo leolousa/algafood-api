@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum ProblemType {
 
+	CORPO_REQUISICAO_TRUNCADO("/corpo-requisicao-truncado", "Corpo de requisição truncado"),
 	ENTIDADE_NAO_ENCONTRADA("/entidade-nao-encontrada", "Entidade não encontrada"),
 	ENTIDADE_EM_USO("/entidade-em-uso", "Entidade em uso"),
 	ERRO_NEGOCIO("/erro-negocio", "Violação de regra de negócio");
@@ -13,7 +14,7 @@ public enum ProblemType {
 	private String uri;
 	
 	ProblemType(String path, String title) {
-		this.uri = "https://algafood.com.br/" + path;
+		this.uri = "https://algafood.com.br" + path;
 		this.title = title;
 	}
 }
