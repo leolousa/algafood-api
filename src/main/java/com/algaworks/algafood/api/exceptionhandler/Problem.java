@@ -19,5 +19,5 @@ public class Problem {
 	private String detail;
 	
 	private String userMessage;
-	private LocalDateTime dataHora;
+	private LocalDateTime timeStamp;
 }
