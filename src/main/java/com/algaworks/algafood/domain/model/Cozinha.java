@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.algaworks.algafood.domain.validation.Groups;
+import com.algaworks.algafood.core.validation.Groups;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
