@@ -11,7 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
-
+/**
+ * Classe de testes de integração
+ * 
+ * @author Leonardo
+ *
+ */
 @SpringBootTest
 class CadastroCozinhaIntegrationTests {
 
@@ -19,7 +24,7 @@ class CadastroCozinhaIntegrationTests {
 	private CadastroCozinhaService cadastroCozinha;
 
 	@Test
-	public void testarCadastroCozinhaComSucessso() {
+	public void deveAtribuirId_quandoCadastrarCozinhaComDadosCorretos() {
 		// Cenário
 		Cozinha novaCozinha = new Cozinha();
 		novaCozinha.setNome("Chinesa");
@@ -33,7 +38,7 @@ class CadastroCozinhaIntegrationTests {
 	}
 
 	@Test
-	public void testarCadastroCozinhaSemNome() {
+	public void deveFalhar_quandoCadastrarCozinhaSemNome() {
 		Cozinha novaCozinha = new Cozinha();
 		novaCozinha.setNome(null);
 
