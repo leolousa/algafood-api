@@ -1,6 +1,5 @@
 package com.algaworks.algafood;
 
-import org.flywaydb.core.Flyway;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
+
+import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.util.DataBaseCleaner;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -28,8 +31,11 @@ class CadastroCozinhaIT {
 	private int port;
 	
 	@Autowired
-	private Flyway flyway;
-
+	private DataBaseCleaner dataBaseCleaner;
+	
+	@Autowired
+	private CozinhaRepository cozinhaRepository;
+	
 	@BeforeEach //Método de preparação para os testes. Executado antes de cada teste
 	public void setUp() {
 		//Habilita o log da requisição caso o teste falhe
@@ -37,7 +43,8 @@ class CadastroCozinhaIT {
 		RestAssured.port = port;
 		RestAssured.basePath = "/cozinhas";
 		
-		flyway.migrate(); //Roda a migração antes de cada teste garantindo a massa de dados do afterMigrate.sql 
+		dataBaseCleaner.clearTables();
+		preparaDados();
 	}
 
 	@Test
@@ -78,5 +85,23 @@ class CadastroCozinhaIT {
 			.post()
 		.then()
 			.statusCode(HttpStatus.CREATED.value());
+	}
+	
+	private void preparaDados() {
+		Cozinha cozinha1 = new Cozinha();
+		cozinha1.setNome("Tailandesa");
+		cozinhaRepository.save(cozinha1);
+		
+		Cozinha cozinha2 = new Cozinha();
+		cozinha2.setNome("Americana");
+		cozinhaRepository.save(cozinha2);
+		
+		Cozinha cozinha3 = new Cozinha();
+		cozinha3.setNome("Indiana");
+		cozinhaRepository.save(cozinha3);
+		
+		Cozinha cozinha4 = new Cozinha();
+		cozinha4.setNome("Brasileira");
+		cozinhaRepository.save(cozinha4);
 	}
 }
