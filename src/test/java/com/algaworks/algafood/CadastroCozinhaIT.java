@@ -1,5 +1,6 @@
 package com.algaworks.algafood;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -35,6 +36,24 @@ class CadastroCozinhaIT {
 			.get()
 		.then()
 			.statusCode(HttpStatus.OK.value());
+			
+	}
+	
+	@Test
+	public void deveConter4Cozinhas_quandoConsultarCozinhas() {
+		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+		
+		//Faz a requisição para testar
+		RestAssured.given()
+			.basePath("/cozinhas")
+			.port(port)
+			.accept(ContentType.JSON)
+		.when()
+			.get()
+		.then()
+			.body("", Matchers.hasSize(4))//Testa o retorno de quatro objetos no array JSON
+			.body("nome", Matchers.hasItems("Indiana", "Tailandesa"));//Testa o retorno dos nomes nos objetos no array JSON
+		
 			
 	}
 }
