@@ -19,8 +19,10 @@ import io.restassured.http.ContentType;
 
 /**
  * Classe de testes de integração
+ * e Testes de API
+ * 
  * Maven: mvnw verify
- * STS: 
+ * STS: Run as > JUnit Test
  * @author Leonardo
  *
  */
