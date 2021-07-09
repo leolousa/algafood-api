@@ -16,17 +16,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.algaworks.algafood.core.validation.Groups;
 import com.algaworks.algafood.core.validation.ValorZeroIncluiDescricao;
 
 import lombok.Data;
@@ -44,19 +38,19 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+//	@NotBlank (não é necessária a anotação caso a interface de dados seja apenas por DTO)
 	@Column(nullable = false)
 	private String nome;
 	
-	@NotNull 
+//	@NotNull 
 	@PositiveOrZero
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 	
-	@Valid
-	@NotNull
+//	@Valid
+//	@NotNull
 	@ManyToOne
-	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
+//	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 	

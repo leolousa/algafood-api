@@ -10,9 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import com.algaworks.algafood.core.validation.Groups;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +20,7 @@ import lombok.EqualsAndHashCode;
 public class Cozinha {
 
 	@Id
-	@NotNull(groups = Groups.CozinhaId.class)
+//	@NotNull(groups = Groups.CozinhaId.class) (não é necessária a anotação caso a interface de dados seja apenas por DTO)
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
