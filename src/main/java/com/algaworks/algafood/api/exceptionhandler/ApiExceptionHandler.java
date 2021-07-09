@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,10 +82,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
 		if (body == null) {
-			body = Problem.builder().timeStamp(LocalDateTime.now()).title(status.getReasonPhrase())
+			body = Problem.builder().timeStamp(OffsetDateTime.now()).title(status.getReasonPhrase())
 					.status(status.value()).userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL).build();
 		} else if (body instanceof String) {
-			body = Problem.builder().timeStamp(LocalDateTime.now()).title((String) body).status(status.value())
+			body = Problem.builder().timeStamp(OffsetDateTime.now()).title((String) body).status(status.value())
 					.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL).build();
 		}
 
@@ -246,7 +246,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	// Método para criar um Problem builder
 	private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail) {
 
-		return Problem.builder().timeStamp(LocalDateTime.now()).status(status.value()).type(problemType.getUri())
+		return Problem.builder().timeStamp(OffsetDateTime.now()).status(status.value()).type(problemType.getUri())
 				.title(problemType.getTitle()).detail(detail);
 	}
 
