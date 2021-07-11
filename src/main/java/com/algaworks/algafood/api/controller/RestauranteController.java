@@ -41,9 +41,6 @@ public class RestauranteController {
 	
 	@Autowired
 	private RestauranteInputDisassembler restauranteInputDisassembler;
-	
-	//@Autowired
-	//private SmartValidator validator;
 
 	@GetMapping
 	public List<RestauranteModel> listar() {
