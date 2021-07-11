@@ -9,7 +9,7 @@ import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 
 /**
- * Classe de conversão de RestauranteInput para Restaurante
+ * Classe de conversão de RestauranteInput(DTO) para Restaurante(Entidade)
  * 
  * @author Leonardo
  *

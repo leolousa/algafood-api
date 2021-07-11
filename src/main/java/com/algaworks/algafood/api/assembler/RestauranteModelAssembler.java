@@ -11,7 +11,7 @@ import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.domain.model.Restaurante;
 
 /**
- * Classe de conversão de Restaurante para RestauranteModel
+ * Classe de conversão de Restaurante(Entidade) para RestauranteModel(DTO)
  * 
  * @author Leonardo
  *
