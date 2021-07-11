@@ -27,12 +27,23 @@ public class CadastroRestauranteService {
 	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
-		
 		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
-		
 		restaurante.setCozinha(cozinha);
-		
 		return restauranteRepository.save(restaurante);
+	}
+	
+	@Transactional
+	public void ativar(Long RestauranteId) {
+		Restaurante restauranteAtual = buscarOuFalhar(RestauranteId);
+		//Apenas esta alteração na instância
+		//provoca uma alteração na entidade. O JPA irá salvar o dado na instância
+		restauranteAtual.ativar();
+	}
+	
+	@Transactional
+	public void inativar(Long RestauranteId) {
+		Restaurante restauranteAtual = buscarOuFalhar(RestauranteId);
+		restauranteAtual.inativar();
 	}
 
 	public void excluir(Long restauranteId) {

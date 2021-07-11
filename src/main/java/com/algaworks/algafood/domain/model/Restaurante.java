@@ -38,24 +38,21 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-//	@NotBlank (não é necessária a anotação caso a interface de dados seja apenas por DTO)
 	@Column(nullable = false)
 	private String nome;
 	
-//	@NotNull 
 	@PositiveOrZero
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 	
-//	@Valid
-//	@NotNull
 	@ManyToOne
-//	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 	
 	@Embedded
 	private Endereco endereco;
+	
+	private Boolean ativo = Boolean.TRUE;
 	
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
@@ -65,13 +62,21 @@ public class Restaurante {
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataAtualizacao;
 	
-	@OneToMany(mappedBy = "restaurante")
-	private List<Produto> produtos;
-	
 	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento",
 			joinColumns = @JoinColumn(name = "restaurante_id"),
 			inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
 	private List<FormaPagamento> formasPagamento = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "restaurante")
+	private List<Produto> produtos;
+	
+	public void ativar() {
+		this.setAtivo(true);
+	}
+	
+	public void inativar() {
+		this.setAtivo(false);
+	}
+
 }
