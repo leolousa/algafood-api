@@ -16,16 +16,12 @@ import com.algaworks.algafood.domain.model.Restaurante;
  *
  */
 @Component
-public class RestauranteInputDisassembler {
+public class RestauranteInputDisassembler extends ObjectInputDisassembler<RestauranteInput, Restaurante>{
 
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	//Método que converte RestauranteInput para Restaurante
-	public Restaurante toDomainObject(RestauranteInput restauranteInput) {
-		return modelMapper.map(restauranteInput, Restaurante.class);
-	}
-	
+	@Override
 	public void copyToDomainObject(RestauranteInput restauranteInput, Restaurante restaurante) {
 		// Para evitar org.hibernate.HibernateException: identifier of an instance of
 		// com.algaworks.algafood.domain.model.Cozinha was altered from 1 to 3
