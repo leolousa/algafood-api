@@ -18,9 +18,6 @@ import com.algaworks.algafood.domain.model.Restaurante;
 @Component
 public class RestauranteInputDisassembler extends ObjectInputDisassembler<RestauranteInput, Restaurante>{
 
-	@Autowired
-	private ModelMapper modelMapper;
-	
 	@Override
 	public void copyToDomainObject(RestauranteInput restauranteInput, Restaurante restaurante) {
 		// Para evitar org.hibernate.HibernateException: identifier of an instance of
@@ -31,6 +28,6 @@ public class RestauranteInputDisassembler extends ObjectInputDisassembler<Restau
 			restaurante.getEndereco().setCidade(new Cidade());
 		}
 		
-		modelMapper.map(restauranteInput, restaurante);
+		getMapper().map(restauranteInput, restaurante);
 	}
 }
