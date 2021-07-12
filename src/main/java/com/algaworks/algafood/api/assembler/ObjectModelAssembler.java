@@ -6,7 +6,15 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
+/**
+ * Classe abstrata genérica para implementar
+ * a montagem de um objeto Model
+ * 
+ * @author Leonardo
+ *
+ * @param <M>
+ * @param <D>
+ */
 public abstract class ObjectModelAssembler<M, D> {
 	
 	@Autowired 
