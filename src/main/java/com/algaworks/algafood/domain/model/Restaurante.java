@@ -2,7 +2,6 @@ package com.algaworks.algafood.domain.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,7 +53,6 @@ public class Restaurante {
 	@Embedded
 	private Endereco endereco;
 	
-	private Boolean ativo = Boolean.TRUE;
 	
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
@@ -73,12 +71,24 @@ public class Restaurante {
 	@OneToMany(mappedBy = "restaurante")
 	private List<Produto> produtos;
 	
+	private Boolean ativo = Boolean.TRUE;
+	
 	public void ativar() {
 		this.setAtivo(true);
 	}
 	
 	public void inativar() {
 		this.setAtivo(false);
+	}
+	
+	private Boolean aberto = Boolean.FALSE;
+
+	public void abrir() {
+	    setAberto(true);
+	}
+
+	public void fechar() {
+	    setAberto(false);
 	}
 	
 	public boolean adicionarFormaPagamento(FormaPagamento formaPagamento) {
