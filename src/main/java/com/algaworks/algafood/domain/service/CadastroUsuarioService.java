@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.UsuarioNaoEncontradoException;
+import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
 
@@ -15,9 +16,13 @@ public class CadastroUsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     
+    @Autowired
+    private CadastroGrupoService cadastroGrupo;
+    
     @Transactional
     public Usuario salvar(Usuario usuario) {
-    	// IMPLEMENTAÇÃO Thiago
+    	
+    	// IMPLEMENTAÇÃO Thiago:
     	//Remove o usuário do contexto de persistência 
     	//para evitar que o JPA gerencie o objeto usuário
     	//usuarioRepository.detach(usuario);
@@ -29,7 +34,7 @@ public class CadastroUsuarioService {
     				//String.format("Já existe usuário cadastrado com o e-mail %s", usuario.getEmail()));
     	//}
     	
-    	// IMPLEMENTAÇÃO método customizado
+    	// IMPLEMENTAÇÃO método customizado:
     	if (usuarioRepository.existsByEmailAndId(usuario.getEmail(), usuario.getId())) {
             throw new NegocioException(String.format("Já existe um usuário cadastrado com o e-mail %s", usuario.getEmail()));
         }
@@ -51,5 +56,21 @@ public class CadastroUsuarioService {
     public Usuario buscarOuFalhar(Long usuarioId) {
         return usuarioRepository.findById(usuarioId)
             .orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
-    }            
+    }
+    
+    @Transactional
+    public void desassociarGrupo(Long usuarioId, Long grupoId) {
+        Usuario usuario = buscarOuFalhar(usuarioId);
+        Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
+        
+        usuario.removerGrupo(grupo);
+    }
+
+    @Transactional
+    public void associarGrupo(Long usuarioId, Long grupoId) {
+        Usuario usuario = buscarOuFalhar(usuarioId);
+        Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
+        
+        usuario.adicionarGrupo(grupo);
+    }
 } 
