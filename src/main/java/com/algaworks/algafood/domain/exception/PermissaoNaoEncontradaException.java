@@ -1,7 +1,7 @@
 package com.algaworks.algafood.domain.exception;
 
 /**
- * Classe de Exception customisada para a entidade Permissao
+ * Classe de Exception customizada para a entidade Permissao
  * @author Leonardo
  *
  */

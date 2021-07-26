@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 
  * @author Leonardo
  *
- * @param <M>
- * @param <D>
+ * @param <M> Model
+ * @param <D> Domain
  */
 public abstract class ObjectModelAssembler<M, D> {
 	

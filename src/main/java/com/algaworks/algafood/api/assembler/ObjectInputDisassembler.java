@@ -13,8 +13,8 @@ import lombok.Getter;
  * 
  * @author Josemar de Mendonça Flausino em 21/07/2020
  *
- * @param <I>
- * @param <D>
+ * @param <I> Input
+ * @param <D> Domain
  */
 public abstract class ObjectInputDisassembler<I, D> {
 
