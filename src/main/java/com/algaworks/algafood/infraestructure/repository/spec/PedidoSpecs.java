@@ -21,9 +21,11 @@ public class PedidoSpecs {
 	public static Specification<Pedido> usandoFiltro(PedidoFilter filtro) {
 		return (root, query, builder) -> {
 			
-			//Evitar problema de N+1 (muitos selects trazendo os relacionamentos
-			root.fetch("restaurante").fetch("cozinha");
-			root.fetch("cliente");
+			//Evitar problema de N+1 (muitos selects trazendo os relacionamentos apenas quando for Pedido
+			if (Pedido.class.equals(query.getResultType())) {
+				root.fetch("restaurante").fetch("cozinha");
+				root.fetch("cliente");
+		    }
 			
 			var predicates = new ArrayList<Predicate>();
 			
