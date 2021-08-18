@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.repository.filter;
+package com.algaworks.algafood.domain.filter;
 
 import java.time.OffsetDateTime;
 
@@ -8,18 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Classe tipo DTO para representar
- * os critérios de busca do pedido
- * @author Leonardo
- *
- */
-
 @Setter
 @Getter
-public class PedidoFilter {
+public class VendaDiariaFilter {
 
-	private Long clienteId;
 	private Long restauranteId;
 	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
