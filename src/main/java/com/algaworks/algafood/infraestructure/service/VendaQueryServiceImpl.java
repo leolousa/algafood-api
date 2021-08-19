@@ -29,13 +29,16 @@ public class VendaQueryServiceImpl implements VendaQueryService {
 	private EntityManager manager;
 	
 	@Override
-	public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro) {
+	public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro, String timeOffset) {
 		var builder = manager.getCriteriaBuilder();
 		var query = builder.createQuery(VendaDiaria.class);// tipo que a consulta retorna
 		var root = query.from(Pedido.class);
 		
+		var functioConvertTzDataCriacao = builder.function(
+				"convert_tz", Date.class, root.get("dataCriacao"), builder.literal("+00:00"), builder.literal(timeOffset));
+		
 		var funtionDateDataCriacao = builder.function(
-				"date", Date.class, root.get("dataCriacao")); //Evocar a função Date do MySQL
+				"date", Date.class, functioConvertTzDataCriacao); //Evocar a função Date do MySQL convertendo o TimeZone
 		
 		var selection = builder.construct(VendaDiaria.class,
 				funtionDateDataCriacao,

@@ -1,8 +1,13 @@
 package com.algaworks.algafood.api.exceptionhandler;
 
 import java.time.OffsetDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Path.Node;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
@@ -55,6 +60,43 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 	        HttpHeaders headers, HttpStatus status, WebRequest request) {
 	    return handleValidationInternal(ex, ex.getBindingResult(), headers, status, request);
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Object> handleConstraintViolationException(
+			ConstraintViolationException ex, WebRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		List<Problem.Object> objects = ex.getConstraintViolations().stream()
+				.map(constraint -> {
+					String name = extrairNomePropriedadeComErro(constraint);
+					
+					return Problem.Object.builder()
+						.name(name.toString())
+						.userMessage(constraint.getMessage())
+						.build();
+				})
+				.collect(Collectors.toList());
+		
+		String detail = MSG_ERRO_GENERICA_USUARIO_FINAL;
+		Problem problem = createProblemBuilder(status, ProblemType.DADOS_INVALIDOS, detail)
+				.userMessage(detail)
+				.objects(objects)
+				.build();
+		
+		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+	}
+
+	private String extrairNomePropriedadeComErro(ConstraintViolation<?> constraint) {
+		StringBuilder name = new StringBuilder();
+		
+		Iterator<Node> iterator = constraint.getPropertyPath().iterator();
+		iterator.next();
+		
+		while (iterator.hasNext()) {
+			Node node = iterator.next();
+			name.append(node.getName());
+		}
+		return name.toString();
 	}
 
 	@Override
