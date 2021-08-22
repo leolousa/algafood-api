@@ -15,11 +15,11 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**") // Permite qualquer origem
+		registry.addMapping("/**") // Permite qualquer origem para as requisições
 		.allowedMethods("*");
 		//.allowedOrigins("https://www.algafood.com") Permitir uma origem específica
 		//.allowedMethods("GET", "HEAD", "POST") Permitir métodos específicos
-		// registry.addMapping("/**");
+		// registry.addMapping("adimin/**");
 	}
 	
 }
