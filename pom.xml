@@ -18,6 +18,7 @@
 		<java.version>11</java.version>
 		<modelmapper.version>2.4.2</modelmapper.version>
 		<jasperreports.version>6.17.0</jasperreports.version>
+		<spring-fox.version>2.9.2</spring-fox.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -87,6 +88,11 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-functions</artifactId>
 			<version>${jasperreports.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${spring-fox.version}</version>
 		</dependency>
 
 	</dependencies>
