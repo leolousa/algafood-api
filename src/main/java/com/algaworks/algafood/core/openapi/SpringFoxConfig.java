@@ -43,13 +43,26 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 					.paths(PathSelectors.any())
 //					.paths(PathSelectors.ant("/restaurantes/*")) //Especificar um end point específico
 					.build()
-					.useDefaultResponseMessages(false) // Mensagens defaul das respostas do endpoint
+					.useDefaultResponseMessages(false) // Mensagens default das respostas do endpoint
 					.globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
+					.globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
+		            .globalResponseMessage(RequestMethod.PUT, globalPostPutResponseMessages())
+		            .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 				.apiInfo(apiInfo()) //Chama o método apiInfo para montar o cabeçalho da documentação
 				.tags(tags()[0], tags());//Chama o método tags para alterar os nomes dos end points na documentacao
 	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		// Mapeamento dos arquivos do Swagger
+		registry.addResourceHandler("swagger-ui.html")
+			.addResourceLocations("classpath:/META-INF/resources/");
+		
+		registry.addResourceHandler("/webjars/**")
+			.addResourceLocations("classpath:/META-INF/resources/webjars/");
+	}
 	
-	//Método que descreve apenas os retornos de erros na documentação dos endpoints
+	//Método que descreve apenas os retornos de erros aos métodos GET na documentação dos endpoints
 	private List<ResponseMessage> globalGetResponseMessages() {
 		return Arrays.asList(
 				new ResponseMessageBuilder()
@@ -63,6 +76,42 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 			);
 	}
 	
+	//Método que descreve apenas os retornos de erros aos métodos POST e PUT na documentação dos endpoints
+	private List<ResponseMessage> globalPostPutResponseMessages() {
+	    return Arrays.asList(
+	            new ResponseMessageBuilder()
+	                .code(HttpStatus.BAD_REQUEST.value())
+	                .message("Requisição inválida (erro do cliente)")
+	                .build(),
+	            new ResponseMessageBuilder()
+	                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+	                .message("Erro interno no servidor")
+	                .build(),
+	            new ResponseMessageBuilder()
+	                .code(HttpStatus.NOT_ACCEPTABLE.value())
+	                .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+	                .build(),
+	            new ResponseMessageBuilder()
+	                .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+	                .message("Requisição recusada porque o corpo está em um formato não suportado")
+	                .build()
+	        );
+	}
+
+	//Método que descreve apenas os retornos de erros aos métodos DELETE na documentação dos endpoints
+	private List<ResponseMessage> globalDeleteResponseMessages() {
+	    return Arrays.asList(
+	            new ResponseMessageBuilder()
+	                .code(HttpStatus.BAD_REQUEST.value())
+	                .message("Requisição inválida (erro do cliente)")
+	                .build(),
+	            new ResponseMessageBuilder()
+	                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+	                .message("Erro interno no servidor")
+	                .build()
+	        );
+	}
+	
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Algafood API")
@@ -70,16 +119,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 				.version("1.0")
 				.contact(new Contact("Algaworks", "https://www.algaworks.com", "contato@algaworks.com"))
 				.build();
-	}
-	
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// Mapeamento dos arquivos do Swagger
-		registry.addResourceHandler("swagger-ui.html")
-			.addResourceLocations("classpath:/META-INF/resources/");
-		
-		registry.addResourceHandler("/webjars/**")
-			.addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
 	
 	private Tag[] tags() {
