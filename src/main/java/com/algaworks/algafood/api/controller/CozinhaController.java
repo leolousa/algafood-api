@@ -30,6 +30,7 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api(tags = "Cozinhas")
 @RestController
@@ -61,16 +62,20 @@ public class CozinhaController {
 
 	@ApiOperation("Busca uma cozinha por ID")
 	@GetMapping("/{cozinhaId}")
-	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
+	public CozinhaModel buscar(
+		@ApiParam(value = "ID de uma cozinha", example = "1", required = true)
+		@PathVariable Long cozinhaId) {
 	    Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
 	    
 	    return cozinhaModelAssembler.toModel(cozinha);
 	}
 
-	@ApiOperation("Adiciona uma cozinha")
+	@ApiOperation("Cadastra uma nova cozinha")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
+	public CozinhaModel adicionar(
+			@ApiParam(name = "corpo", value = "Representação de uma nova cozinha")
+			@RequestBody @Valid CozinhaInput cozinhaInput) {
 	    Cozinha cozinha = cozinhaInputDisassembler.toDomainObject(cozinhaInput);
 	    cozinha = cadastroCozinha.salvar(cozinha);
 	    return cozinhaModelAssembler.toModel(cozinha);
@@ -78,8 +83,11 @@ public class CozinhaController {
 
 	@ApiOperation("Atualiza uma cozinha por ID")
 	@PutMapping("/{cozinhaId}")
-	public CozinhaModel atualizar(@PathVariable Long cozinhaId,
-	        @RequestBody @Valid CozinhaInput cozinhaInput) {
+	public CozinhaModel atualizar(
+		@ApiParam(value = "ID de uma cozinha", example = "1", required = true)
+		@PathVariable Long cozinhaId,
+		@ApiParam(name = "corpo", value = "Representação de uma cozinha com os novos dados")
+	    @RequestBody @Valid CozinhaInput cozinhaInput) {
 	    Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 	    cozinhaInputDisassembler.copyToDomainObject(cozinhaInput, cozinhaAtual);
 	    cozinhaAtual = cadastroCozinha.salvar(cozinhaAtual);
@@ -89,7 +97,9 @@ public class CozinhaController {
 	@ApiOperation("Exclui uma cozinha por ID")
 	@DeleteMapping("/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long cozinhaId) {
+	public void remover(
+			@ApiParam(value = "ID de uma cozinha", example = "1", required = true)
+			@PathVariable Long cozinhaId) {
 		cadastroCozinha.excluir(cozinhaId);
 	}
 }

@@ -58,7 +58,7 @@ public class EstadoController {
 	    return estadoModelAssembler.toModel(estado);
 	}
 
-	@ApiOperation("Adiciona um Estado")
+	@ApiOperation("Cadastra um novo Estado")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
