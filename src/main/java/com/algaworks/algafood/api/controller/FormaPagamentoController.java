@@ -24,6 +24,9 @@ import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.CadastroFormaPagamentoService;
 
+import io.swagger.annotations.Api;
+
+@Api(tags = "Formas de pagamento")
 @RestController
 @RequestMapping("/formas-pagamento")
 public class FormaPagamentoController {

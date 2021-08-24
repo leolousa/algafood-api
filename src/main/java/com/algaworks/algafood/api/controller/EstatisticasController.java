@@ -17,11 +17,14 @@ import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
 import com.algaworks.algafood.domain.model.dto.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
 import com.algaworks.algafood.domain.service.VendaReportService;
+
+import io.swagger.annotations.Api;
 /**
  * Classe controladora com os endpoints de estatísticas 
  * @author Leonardo
  *
  */
+@Api(tags = "Estatísticas")
 @RestController
 @RequestMapping(path = "/estatisticas")
 @Validated

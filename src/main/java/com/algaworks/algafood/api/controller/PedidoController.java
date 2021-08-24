@@ -35,6 +35,9 @@ import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infraestructure.repository.spec.PedidoSpecs;
 
+import io.swagger.annotations.Api;
+
+@Api(tags = "Pedidos")
 @RestController
 @RequestMapping(value = "/pedidos")
 public class PedidoController {

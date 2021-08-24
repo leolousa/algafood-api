@@ -17,6 +17,9 @@ import com.algaworks.algafood.api.model.PermissaoModel;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
+import io.swagger.annotations.Api;
+
+@Api(tags = "Grupos de permissão")
 @RestController
 @RequestMapping(value = "/grupos/{grupoId}/permissoes")
 public class GrupoPermissaoController {

@@ -17,6 +17,9 @@ import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
+import io.swagger.annotations.Api;
+
+@Api(tags = "Grupos de usuários")
 @RestController
 @RequestMapping(value = "/usuarios/{usuarioId}/grupos")
 public class UsuarioGrupoController {

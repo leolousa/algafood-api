@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.domain.service.FluxoPedidoService;
+
+import io.swagger.annotations.Api;
 /**
  * Classe controller que é responsável
  * pela alteração do fluxo do pedido
@@ -16,6 +18,7 @@ import com.algaworks.algafood.domain.service.FluxoPedidoService;
  * @author Leonardo
  *
  */
+@Api(tags = "Fluxo de pedidos")
 @RestController
 @RequestMapping(value = "/pedidos/{codigoPedido}")
 public class FluxoPedidoController {

@@ -17,6 +17,9 @@ import com.algaworks.algafood.api.model.UsuarioModel;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
+import io.swagger.annotations.Api;
+
+@Api(tags = "Usuário responsável pelo restaurante")
 @RestController
 @RequestMapping(value = "/restaurantes/{restauranteId}/responsaveis")
 public class RestauranteUsuarioResponsavelController {
