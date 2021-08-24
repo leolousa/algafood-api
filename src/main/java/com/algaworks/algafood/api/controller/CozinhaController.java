@@ -29,6 +29,7 @@ import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Cozinhas")
 @RestController
@@ -47,6 +48,7 @@ public class CozinhaController {
 	@Autowired
 	private CozinhaInputDisassembler cozinhaInputDisassembler;  
 
+	@ApiOperation("Lista as cozinhas")
 	@GetMapping
 	public Page<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
 	    Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
@@ -57,6 +59,7 @@ public class CozinhaController {
 	    return cozinhasModelPage;
 	}
 
+	@ApiOperation("Busca uma cozinha por ID")
 	@GetMapping("/{cozinhaId}")
 	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
 	    Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
@@ -64,6 +67,7 @@ public class CozinhaController {
 	    return cozinhaModelAssembler.toModel(cozinha);
 	}
 
+	@ApiOperation("Adiciona uma cozinha")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
@@ -72,6 +76,7 @@ public class CozinhaController {
 	    return cozinhaModelAssembler.toModel(cozinha);
 	}
 
+	@ApiOperation("Atualiza uma cozinha por ID")
 	@PutMapping("/{cozinhaId}")
 	public CozinhaModel atualizar(@PathVariable Long cozinhaId,
 	        @RequestBody @Valid CozinhaInput cozinhaInput) {
@@ -81,6 +86,7 @@ public class CozinhaController {
 	    return cozinhaModelAssembler.toModel(cozinhaAtual);
 	}
 
+	@ApiOperation("Exclui uma cozinha por ID")
 	@DeleteMapping("/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long cozinhaId) {

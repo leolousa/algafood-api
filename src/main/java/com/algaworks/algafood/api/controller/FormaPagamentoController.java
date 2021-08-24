@@ -25,6 +25,7 @@ import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.CadastroFormaPagamentoService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Formas de pagamento")
 @RestController
@@ -43,6 +44,7 @@ public class FormaPagamentoController {
     @Autowired
     private FormaPagamentoInputDisassembler formaPagamentoInputDisassembler;
     
+    @ApiOperation("Lista as formas de pagamento")
     @GetMapping
     public List<FormaPagamentoModel> listar() {
         List<FormaPagamento> todasFormasPagamentos = formaPagamentoRepository.findAll();
@@ -50,6 +52,7 @@ public class FormaPagamentoController {
         return formaPagamentoModelAssembler.toCollectionModel(todasFormasPagamentos);
     }
     
+    @ApiOperation("Busca uma forma de pagamento por ID")
     @GetMapping("/{formaPagamentoId}")
     public FormaPagamentoModel buscar(@PathVariable Long formaPagamentoId) {
         FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
@@ -57,6 +60,7 @@ public class FormaPagamentoController {
         return formaPagamentoModelAssembler.toModel(formaPagamento);
     }
     
+    @ApiOperation("Adiciona uma forma de pagamento")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public FormaPagamentoModel adicionar(@RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
@@ -65,6 +69,7 @@ public class FormaPagamentoController {
         return formaPagamentoModelAssembler.toModel(formaPagamento);
     }
     
+    @ApiOperation("Atualiza uma forma de pagamento por ID")
     @PutMapping("/{formaPagamentoId}")
     public FormaPagamentoModel atualizar(@PathVariable Long formaPagamentoId,
             @RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
@@ -74,6 +79,7 @@ public class FormaPagamentoController {
         return formaPagamentoModelAssembler.toModel(formaPagamentoAtual);
     }
     
+    @ApiOperation("Exclui uma forma de pagamento por ID")
     @DeleteMapping("/{formaPagamentoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long formaPagamentoId) {

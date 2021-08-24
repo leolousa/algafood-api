@@ -26,6 +26,7 @@ import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Usuários")
 @RestController
@@ -44,6 +45,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioInputDisassembler usuarioInputDisassembler;
     
+    @ApiOperation("Lista usuários")
     @GetMapping
     public List<UsuarioModel> listar() {
         List<Usuario> todasUsuarios = usuarioRepository.findAll();
@@ -51,6 +53,7 @@ public class UsuarioController {
         return usuarioModelAssembler.toCollectionModel(todasUsuarios);
     }
     
+    @ApiOperation("Busca usuário por ID")
     @GetMapping("/{usuarioId}")
     public UsuarioModel buscar(@PathVariable Long usuarioId) {
         Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
@@ -58,6 +61,7 @@ public class UsuarioController {
         return usuarioModelAssembler.toModel(usuario);
     }
     
+    @ApiOperation("Adiciona um novo usuário")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
@@ -67,6 +71,7 @@ public class UsuarioController {
         return usuarioModelAssembler.toModel(usuario);
     }
     
+    @ApiOperation("Atualiza um usuário por ID")
     @PutMapping("/{usuarioId}")
     public UsuarioModel atualizar(@PathVariable Long usuarioId,
             @RequestBody @Valid UsuarioInput usuarioInput) {
@@ -77,6 +82,7 @@ public class UsuarioController {
         return usuarioModelAssembler.toModel(usuarioAtual);
     }
     
+    @ApiOperation("Altera a senha de um usuário por ID")
     @PutMapping("/{usuarioId}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {

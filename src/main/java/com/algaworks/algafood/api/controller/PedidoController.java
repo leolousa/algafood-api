@@ -36,6 +36,7 @@ import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infraestructure.repository.spec.PedidoSpecs;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Pedidos")
 @RestController
@@ -57,6 +58,7 @@ public class PedidoController {
 	@Autowired
 	private PedidoInputDisassembler pedidoInputDisassembler;
 
+	@ApiOperation("Lista paginada dos pedido")
 	@GetMapping
 	public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,
 			@PageableDefault(size = 10) Pageable pageable) {
@@ -74,6 +76,7 @@ public class PedidoController {
 		return pedidosResumoModelPage;
 	}
 
+	@ApiOperation("Busca um pedido por ID")
 	@GetMapping("/{codigoPedido}")
 	public PedidoModel buscar(@PathVariable String codigoPedido) {
 		Pedido pedido = emissaoPedido.buscarOuFalhar(codigoPedido);
@@ -81,6 +84,7 @@ public class PedidoController {
 		return pedidoModelAssembler.toModel(pedido);
 	}
 
+	@ApiOperation("Adiciona um novo pedido")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public PedidoModel adicionar(@Valid @RequestBody PedidoInput pedidoInput) {

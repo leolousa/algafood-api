@@ -18,6 +18,7 @@ import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Grupos de permissão")
 @RestController
@@ -30,6 +31,7 @@ public class GrupoPermissaoController {
 	@Autowired
 	private PermissaoModelAssembler permissaoModelAssembler;
 	
+	@ApiOperation("Lista os grupos de permissão")
 	@GetMapping
 	public List<PermissaoModel> listar(@PathVariable Long grupoId) {
 		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
@@ -37,12 +39,14 @@ public class GrupoPermissaoController {
 		return permissaoModelAssembler.toCollectionModel(grupo.getPermissoes());
 	}
 	
+	@ApiOperation("Exclui um grupo de permissão por ID")
 	@DeleteMapping("/{permissaoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void desassociar(@PathVariable Long grupoId, @PathVariable Long permissaoId) {
 		cadastroGrupo.desassociarPermissao(grupoId, permissaoId);
 	}
 	
+	@ApiOperation("Exclui um grupo de permissão por ID")
 	@PutMapping("/{permissaoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void associar(@PathVariable Long grupoId, @PathVariable Long permissaoId) {

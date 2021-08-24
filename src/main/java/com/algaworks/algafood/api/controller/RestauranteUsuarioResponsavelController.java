@@ -18,6 +18,7 @@ import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Usuário responsável pelo restaurante")
 @RestController
@@ -30,6 +31,7 @@ public class RestauranteUsuarioResponsavelController {
     @Autowired
     private UsuarioModelAssembler usuarioModelAssembler;
     
+    @ApiOperation("Lista os usuários responsáveis pelo restaurante por ID")
     @GetMapping
     public List<UsuarioModel> listar(@PathVariable Long restauranteId) {
         Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
@@ -37,12 +39,14 @@ public class RestauranteUsuarioResponsavelController {
         return usuarioModelAssembler.toCollectionModel(restaurante.getResponsaveis());
     }
     
+    @ApiOperation("Esclui um usuário por ID de um restaurante por ID")
     @DeleteMapping("/{usuarioId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void desassociar(@PathVariable Long restauranteId, @PathVariable Long usuarioId) {
         cadastroRestaurante.desassociarResponsavel(restauranteId, usuarioId);
     }
     
+    @ApiOperation("Associa um usuário responsável por ID a um restaurante por ID")
     @PutMapping("/{usuarioId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void associar(@PathVariable Long restauranteId, @PathVariable Long usuarioId) {

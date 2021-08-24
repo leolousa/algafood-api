@@ -29,6 +29,7 @@ import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Restaurantes")
 @RestController
@@ -47,17 +48,20 @@ public class RestauranteController {
 	@Autowired
 	private RestauranteInputDisassembler restauranteInputDisassembler;
 
+	@ApiOperation("Lista os restaurantes")
 	@GetMapping
 	public List<RestauranteModel> listar() {
 		return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
 	}
 
+	@ApiOperation("Busca um restaurante por ID")
 	@GetMapping("/{restauranteId}")
 	public RestauranteModel buscar(@PathVariable Long restauranteId) {
 		Restaurante restaurante =  cadastroRestaurante.buscarOuFalhar(restauranteId);
 		return restauranteModelAssembler.toModel(restaurante);
 	}
 
+	@ApiOperation("Adiciona um novo restaurante")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
@@ -70,6 +74,7 @@ public class RestauranteController {
 		}
 	}
 
+	@ApiOperation("Atualiza um restaurante por ID")
 	@PutMapping("/{restauranteId}")
 	public RestauranteModel atualizar(@PathVariable Long restauranteId,
 				@RequestBody @Valid RestauranteInput restauranteInput) {
@@ -82,18 +87,21 @@ public class RestauranteController {
 		}
 	}
 	
+	@ApiOperation("Ativa um restaurante por ID")
 	@PutMapping("/{restauranteId}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void ativar(@PathVariable Long restauranteId) {
 		cadastroRestaurante.ativar(restauranteId);
 	}
 
+	@ApiOperation("EInativa um restaurante por ID")
 	@DeleteMapping("/{restauranteId}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void inativar(@PathVariable Long restauranteId) {
 		cadastroRestaurante.inativar(restauranteId);
 	}
 	
+	@ApiOperation("Ativa múltiplos restaurantes por ID")
 	@PutMapping("/ativacoes")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void ativarMultiplos(@RequestBody List<Long> reatauranteIds) {
@@ -104,6 +112,7 @@ public class RestauranteController {
 		}
 	}
 	
+	@ApiOperation("Inativa múltiplos restaurantes por ID")
 	@DeleteMapping("/ativacoes")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void inativarMultiplos(@RequestBody List<Long> reatauranteIds) {
@@ -114,18 +123,21 @@ public class RestauranteController {
 		}
 	}
 	
+	@ApiOperation("Exclui um restaurante por ID")
 	@DeleteMapping("/{restauranteId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long restauranteId) {
 		cadastroRestaurante.excluir(restauranteId);
 	}
 	
+	@ApiOperation("Registra a abertura de um restaurante por ID")
 	@PutMapping("/{restauranteId}/abertura")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void abrir(@PathVariable Long restauranteId) {
 	    cadastroRestaurante.abrir(restauranteId);
 	}
 
+	@ApiOperation("Registra o fechamento de um restaurante por ID")
 	@PutMapping("/{restauranteId}/fechamento")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void fechar(@PathVariable Long restauranteId) {

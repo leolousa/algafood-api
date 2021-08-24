@@ -18,6 +18,7 @@ import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Grupos de usuários")
 @RestController
@@ -30,6 +31,7 @@ public class UsuarioGrupoController {
     @Autowired
     private GrupoModelAssembler grupoModelAssembler;
     
+    @ApiOperation("Lista os grupos de usuários")
     @GetMapping
     public List<GrupoModel> listar(@PathVariable Long usuarioId) {
         Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
@@ -37,12 +39,14 @@ public class UsuarioGrupoController {
         return grupoModelAssembler.toCollectionModel(usuario.getGrupos());
     }
     
+    @ApiOperation("Exclui um usuário por ID")
     @DeleteMapping("/{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void desassociar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {
         cadastroUsuario.desassociarGrupo(usuarioId, grupoId);
     }
     
+    @ApiOperation("Associa um usuário por ID a um grupo por ID")
     @PutMapping("/{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void associar(@PathVariable Long usuarioId, @PathVariable Long grupoId) {

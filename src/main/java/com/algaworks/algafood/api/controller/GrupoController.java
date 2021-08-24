@@ -25,6 +25,7 @@ import com.algaworks.algafood.domain.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Grupos")
 @RestController
@@ -43,42 +44,40 @@ public class GrupoController {
     @Autowired
     private GrupoInputDisassembler grupoInputDisassembler;
     
+    @ApiOperation("Lista os grupos")
     @GetMapping
     public List<GrupoModel> listar() {
         List<Grupo> todosGrupos = grupoRepository.findAll();
-        
         return grupoModelAssembler.toCollectionModel(todosGrupos);
     }
     
+    @ApiOperation("Busca um grupo por ID")
     @GetMapping("/{grupoId}")
     public GrupoModel buscar(@PathVariable Long grupoId) {
         Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
-        
         return grupoModelAssembler.toModel(grupo);
     }
     
+    @ApiOperation("Adiciona um novo grupo")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
-        
         grupo = cadastroGrupo.salvar(grupo);
-        
         return grupoModelAssembler.toModel(grupo);
     }
     
+    @ApiOperation("Atualiza um grupo por ID")
     @PutMapping("/{grupoId}")
     public GrupoModel atualizar(@PathVariable Long grupoId,
             @RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupoAtual = cadastroGrupo.buscarOuFalhar(grupoId);
-        
         grupoInputDisassembler.copyToDomainObject(grupoInput, grupoAtual);
-        
         grupoAtual = cadastroGrupo.salvar(grupoAtual);
-        
         return grupoModelAssembler.toModel(grupoAtual);
     }
     
+    @ApiOperation("Exclui um grupo por ID")
     @DeleteMapping("/{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long grupoId) {

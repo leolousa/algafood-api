@@ -19,6 +19,7 @@ import com.algaworks.algafood.domain.service.VendaQueryService;
 import com.algaworks.algafood.domain.service.VendaReportService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 /**
  * Classe controladora com os endpoints de estatísticas 
  * @author Leonardo
@@ -36,12 +37,14 @@ public class EstatisticasController {
 	@Autowired
 	private VendaReportService vendaReportService;
 	
+	@ApiOperation("Consulta as vendas diárias")
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro,
 			@RequestParam(required = false, defaultValue = "+00:00") @Offset String timeOffset) {
 		return vendaQueryService.consultarVendasDiarias(filtro, timeOffset);
 	}
 	
+	@ApiOperation("Gera um arquivo PDF da vendas diárias")
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<byte[]> consultarVendasDiariasPdf(VendaDiariaFilter filtro,
 			@RequestParam(required = false, defaultValue = "+00:00") @Offset String timeOffset) {

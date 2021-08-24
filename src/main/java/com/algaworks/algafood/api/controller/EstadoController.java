@@ -25,6 +25,7 @@ import com.algaworks.algafood.domain.repository.EstadoRepository;
 import com.algaworks.algafood.domain.service.CadastroEstadoService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Estados")
 @RestController
@@ -43,18 +44,21 @@ public class EstadoController {
 	@Autowired
 	private EstadoInputDisassembler estadoInputDisassembler;  
 	
+	@ApiOperation("Lista os Estados")
 	@GetMapping
 	public List<EstadoModel> listar() {
 	    List<Estado> todosEstados = estadoRepository.findAll();
 	    return estadoModelAssembler.toCollectionModel(todosEstados);
 	}
 
+	@ApiOperation("Busca um Estado por ID")
 	@GetMapping("/{estadoId}")
 	public EstadoModel buscar(@PathVariable Long estadoId) {
 	    Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
 	    return estadoModelAssembler.toModel(estado);
 	}
 
+	@ApiOperation("Adiciona um Estado")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
@@ -63,6 +67,7 @@ public class EstadoController {
 	    return estadoModelAssembler.toModel(estado);
 	}
 
+	@ApiOperation("Atualiza um Estado por ID")
 	@PutMapping("/{estadoId}")
 	public EstadoModel atualizar(@PathVariable Long estadoId,
 	        @RequestBody @Valid EstadoInput estadoInput) {
@@ -72,6 +77,7 @@ public class EstadoController {
 	    return estadoModelAssembler.toModel(estadoAtual);
 	}       
 	
+	@ApiOperation("Exclui um Estado por ID")
 	@DeleteMapping("/{estadoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long estadoId) {

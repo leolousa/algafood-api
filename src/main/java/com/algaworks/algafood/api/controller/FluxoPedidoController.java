@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.domain.service.FluxoPedidoService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 /**
  * Classe controller que é responsável
  * pela alteração do fluxo do pedido
@@ -26,18 +27,21 @@ public class FluxoPedidoController {
 	@Autowired
 	private FluxoPedidoService fluxoPedido;
 	
+	@ApiOperation("Confirma um pedido")
 	@PutMapping("/confirmacao")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
     public void confimar(@PathVariable String codigoPedido) {
     	fluxoPedido.confirmar(codigoPedido);
     }
 	
+	@ApiOperation("Cancela um pedido")
 	@PutMapping("/cancelamento")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void cancelar(@PathVariable String codigoPedido) {
 	    fluxoPedido.cancelar(codigoPedido);
 	}
 	
+	@ApiOperation("Registra a entrega de um pedido")
 	@PutMapping("/entrega")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void entregar(@PathVariable String codigoPedido) {

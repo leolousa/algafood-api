@@ -27,6 +27,7 @@ import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(tags = "Produtos dos restaurantes")
 @RestController
@@ -48,6 +49,7 @@ public class RestauranteProdutoController {
     @Autowired
     private ProdutoInputDisassembler produtoInputDisassembler;
     
+    @ApiOperation("Lista produtos de um restaurante por ID")
     @GetMapping
     public List<ProdutoModel> listar(@PathVariable Long restauranteId,
     		@RequestParam(required = false) boolean incluirInativos) {
@@ -64,6 +66,7 @@ public class RestauranteProdutoController {
         return produtoModelAssembler.toCollectionModel(todosProdutos);
     }
     
+    @ApiOperation("Busca um produto por ID de um restaurante por ID")
     @GetMapping("/{produtoId}")
     public ProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
@@ -71,6 +74,7 @@ public class RestauranteProdutoController {
         return produtoModelAssembler.toModel(produto);
     }
     
+    @ApiOperation("Adiciona um novo produto a um restaurante por ID")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProdutoModel adicionar(@PathVariable Long restauranteId,
@@ -85,6 +89,7 @@ public class RestauranteProdutoController {
         return produtoModelAssembler.toModel(produto);
     }
     
+    @ApiOperation("Atualiza um produto por ID de um restaurante por ID")
     @PutMapping("/{produtoId}")
     public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
             @RequestBody @Valid ProdutoInput produtoInput) {
