@@ -18,19 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.assembler.GrupoInputDisassembler;
 import com.algaworks.algafood.api.assembler.GrupoModelAssembler;
+import com.algaworks.algafood.api.controller.openapi.GrupoControllerOpenApi;
 import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
-@Api(tags = "Grupos")
 @RestController
 @RequestMapping("/grupos")
-public class GrupoController {
+public class GrupoController implements GrupoControllerOpenApi {
 
     @Autowired
     private GrupoRepository grupoRepository;
@@ -44,21 +41,18 @@ public class GrupoController {
     @Autowired
     private GrupoInputDisassembler grupoInputDisassembler;
     
-    @ApiOperation("Lista os grupos")
     @GetMapping
     public List<GrupoModel> listar() {
         List<Grupo> todosGrupos = grupoRepository.findAll();
         return grupoModelAssembler.toCollectionModel(todosGrupos);
     }
     
-    @ApiOperation("Busca um grupo por ID")
     @GetMapping("/{grupoId}")
     public GrupoModel buscar(@PathVariable Long grupoId) {
         Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
         return grupoModelAssembler.toModel(grupo);
     }
     
-    @ApiOperation("Adiciona um novo grupo")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
@@ -67,7 +61,6 @@ public class GrupoController {
         return grupoModelAssembler.toModel(grupo);
     }
     
-    @ApiOperation("Atualiza um grupo por ID")
     @PutMapping("/{grupoId}")
     public GrupoModel atualizar(@PathVariable Long grupoId,
             @RequestBody @Valid GrupoInput grupoInput) {
@@ -77,7 +70,6 @@ public class GrupoController {
         return grupoModelAssembler.toModel(grupoAtual);
     }
     
-    @ApiOperation("Exclui um grupo por ID")
     @DeleteMapping("/{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long grupoId) {
