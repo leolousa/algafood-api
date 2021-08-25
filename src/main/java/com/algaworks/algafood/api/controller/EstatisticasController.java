@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags = "Estatísticas")
 @RestController
-@RequestMapping(path = "/estatisticas")
+@RequestMapping(path = "/estatisticas", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
 public class EstatisticasController {
 	
