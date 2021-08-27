@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.CozinhaModel;
+import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.openapi.model.PageableModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.PagedModelOpenApi;
 import com.fasterxml.classmate.TypeResolver;
@@ -66,6 +67,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 		            .additionalModels(typeResolver.resolve(Problem.class)) //Lista um modelo extra na parte de Models da documentação
 		            .ignoredParameterTypes(ServletWebRequest.class) //Ignora este tipo de objeto nas assinaturas dos métodos
 		            .alternateTypeRules(buildPageTypeRole(CozinhaModel.class))
+		            .alternateTypeRules(buildPageTypeRole(PedidoResumoModel.class))
 		            //.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class), CozinhasModelOpenApi.class))
 		            .directModelSubstitute(Pageable.class, PageableModelOpenApi.class) // Sibstitui uma classe pela outra para refletir na documentação
 				.apiInfo(apiInfo()) //Chama o método apiInfo para montar o cabeçalho da documentação
