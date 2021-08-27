@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +14,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.core.openapi.model.PageableModelOpenApi;
+import com.algaworks.algafood.api.model.CozinhaModel;
+import com.algaworks.algafood.api.openapi.model.PageableModelOpenApi;
+import com.algaworks.algafood.api.openapi.model.PagedModelOpenApi;
 import com.fasterxml.classmate.TypeResolver;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
@@ -21,6 +24,8 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.AlternateTypeRule;
+import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -41,10 +46,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import(BeanValidatorPluginsConfiguration.class) // Para aproveitar as anotações do Bean Validation na documentação (Nem todas estão implementadas)
 public class SpringFoxConfig implements WebMvcConfigurer {
 
+	private TypeResolver typeResolver = new TypeResolver();
+	
 	@Bean
 	public Docket apiDockey() {
-		var typeResolver = new TypeResolver();
-		
+
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 					.apis(RequestHandlerSelectors.basePackage("com.algaworks.algafood.api"))
@@ -57,7 +63,9 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 		            .globalResponseMessage(RequestMethod.PUT, globalPostPutResponseMessages())
 		            .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 		            .additionalModels(typeResolver.resolve(Problem.class)) //Lista um modelo extra na parte de Models da documentação
-		            .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
+		            .alternateTypeRules(buildPageTypeRole(CozinhaModel.class))
+		            //.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class), CozinhasModelOpenApi.class))
+		            .directModelSubstitute(Pageable.class, PageableModelOpenApi.class) // Sibstitui uma classe pela outra para refletir na documentação
 				.apiInfo(apiInfo()) //Chama o método apiInfo para montar o cabeçalho da documentação
 				.tags(tags()[0], tags());//Chama o método tags para alterar os nomes dos end points na documentacao
 	}
@@ -156,4 +164,13 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 	        new Tag("Usuário responsável pelo restaurante", "Gerencia os usuários responsáveis pelo restaurante")
 	    };
 	}
+	
+	// Método para simplificar o uso de alternateTypeRules na configuração do Docket quando as Entidades
+	// da API forem usar o objeto Page do Spring para paginação para a documentação da API
+	private <T> AlternateTypeRule buildPageTypeRole(Class<T> classModel) {
+        return AlternateTypeRules.newRule(
+                typeResolver.resolve(Page.class, classModel), 
+                typeResolver.resolve(PagedModelOpenApi.class, classModel)
+        );
+    }
 }
