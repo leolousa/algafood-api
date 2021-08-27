@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -63,6 +64,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 		            .globalResponseMessage(RequestMethod.PUT, globalPostPutResponseMessages())
 		            .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
 		            .additionalModels(typeResolver.resolve(Problem.class)) //Lista um modelo extra na parte de Models da documentação
+		            .ignoredParameterTypes(ServletWebRequest.class) //Ignora este tipo de objeto nas assinaturas dos métodos
 		            .alternateTypeRules(buildPageTypeRole(CozinhaModel.class))
 		            //.alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class), CozinhasModelOpenApi.class))
 		            .directModelSubstitute(Pageable.class, PageableModelOpenApi.class) // Sibstitui uma classe pela outra para refletir na documentação
