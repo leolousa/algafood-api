@@ -76,7 +76,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public CozinhaModel adicionar(
-			@ApiParam(name = "corpo", value = "Representação de uma nova cozinha")
+			@ApiParam(name = "corpo", value = "Representação de uma nova cozinha", required = true)
 			@RequestBody @Valid CozinhaInput cozinhaInput) {
 	    Cozinha cozinha = cozinhaInputDisassembler.toDomainObject(cozinhaInput);
 	    cozinha = cadastroCozinha.salvar(cozinha);
@@ -88,7 +88,7 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	public CozinhaModel atualizar(
 		@ApiParam(value = "ID de uma cozinha", example = "1", required = true)
 		@PathVariable Long cozinhaId,
-		@ApiParam(name = "corpo", value = "Representação de uma cozinha com os novos dados")
+		@ApiParam(name = "corpo", value = "Representação de uma cozinha com os novos dados", required = true)
 	    @RequestBody @Valid CozinhaInput cozinhaInput) {
 	    Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 	    cozinhaInputDisassembler.copyToDomainObject(cozinhaInput, cozinhaAtual);
