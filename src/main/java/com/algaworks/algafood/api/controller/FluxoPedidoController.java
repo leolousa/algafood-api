@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.api.openapi.controller.FluxoPedidoControllerOpenApi;
 import com.algaworks.algafood.domain.service.FluxoPedidoService;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 /**
  * Classe controller que é responsável
@@ -21,7 +20,6 @@ import io.swagger.annotations.ApiOperation;
  * @author Leonardo
  *
  */
-@Api(tags = "Pedidos")
 @RestController
 @RequestMapping(path = "/pedidos/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FluxoPedidoController implements FluxoPedidoControllerOpenApi {

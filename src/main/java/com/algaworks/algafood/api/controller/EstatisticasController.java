@@ -18,14 +18,12 @@ import com.algaworks.algafood.domain.model.dto.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
 import com.algaworks.algafood.domain.service.VendaReportService;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 /**
  * Classe controladora com os endpoints de estatísticas 
  * @author Leonardo
  *
  */
-@Api(tags = "Estatísticas")
 @RestController
 @RequestMapping(path = "/estatisticas", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
