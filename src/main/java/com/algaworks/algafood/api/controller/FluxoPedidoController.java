@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.openapi.controller.FluxoPedidoControllerOpenApi;
 import com.algaworks.algafood.domain.service.FluxoPedidoService;
 
 import io.swagger.annotations.Api;
@@ -20,10 +21,10 @@ import io.swagger.annotations.ApiOperation;
  * @author Leonardo
  *
  */
-@Api(tags = "Fluxo de pedidos")
+@Api(tags = "Pedidos")
 @RestController
 @RequestMapping(path = "/pedidos/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
-public class FluxoPedidoController {
+public class FluxoPedidoController implements FluxoPedidoControllerOpenApi {
 
 	@Autowired
 	private FluxoPedidoService fluxoPedido;
@@ -31,7 +32,7 @@ public class FluxoPedidoController {
 	@ApiOperation("Confirma um pedido")
 	@PutMapping("/confirmacao")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-    public void confimar(@PathVariable String codigoPedido) {
+    public void confirmar(@PathVariable String codigoPedido) {
     	fluxoPedido.confirmar(codigoPedido);
     }
 	
