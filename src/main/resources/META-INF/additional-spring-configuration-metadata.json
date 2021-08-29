@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "algafood.storage.local.diretorio-fotos",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.local.diretorio-fotos'"
+  },
+  {
+    "name": "algafood.storage.tipo",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.tipo'"
+  },
+  {
+    "name": "algafood.storage.s3.bucket",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.s3.bucket'"
+  },
+  {
+    "name": "algafood.storage.s3.chave-acesso-secreta",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.s3.chave-acesso-secreta'"
+  },
+  {
+    "name": "algafood.storage.s3.diretorio-fotos",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.s3.diretorio-fotos'"
+  },
+  {
+    "name": "algafood.storage.s3.id-chave-acesso",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.s3.id-chave-acesso'"
+  },
+  {
+    "name": "algafood.storage.s3.regiao",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.storage.s3.regiao'"
+  }
+]}
