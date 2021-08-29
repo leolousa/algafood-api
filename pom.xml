@@ -18,6 +18,7 @@
 		<java.version>11</java.version>
 		<modelmapper.version>2.4.2</modelmapper.version>
 		<jasperreports.version>6.17.0</jasperreports.version>
+		<aws-java-sdk-s3.version>1.12.57</aws-java-sdk-s3.version>
 		<spring-fox.version>2.9.2</spring-fox.version>
 	</properties>
 	<dependencies>
@@ -35,6 +36,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -90,6 +92,11 @@
 			<version>${jasperreports.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>${aws-java-sdk-s3.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>${spring-fox.version}</version>
@@ -103,6 +110,11 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-bean-validators</artifactId>
 			<version>${spring-fox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
