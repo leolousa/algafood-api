@@ -9,6 +9,12 @@ import org.springframework.util.FileCopyUtils;
 import com.algaworks.algafood.core.storage.StorageProperties;
 import com.algaworks.algafood.domain.service.FotoStorageService;
 
+/**
+ * Classe de implementação de storage Local
+ * 
+ * @author Leonardo
+ *
+ */
 public class LocalFotoStorageService implements FotoStorageService {
 
 	@Autowired
