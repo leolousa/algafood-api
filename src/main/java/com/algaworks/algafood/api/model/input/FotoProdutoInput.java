@@ -17,8 +17,8 @@ import lombok.Setter;
 @Setter
 public class FotoProdutoInput {
 
-	@ApiModelProperty(hidden = true)
 	@NotNull
+	@ApiModelProperty(hidden = true)
 	@FileSize(max = "500KB") // O padrão é 1MB
 	@FileContentType(allowed = { MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE })
 	private MultipartFile arquivo;
