@@ -106,12 +106,14 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 			
 			FotoRecuperada fotoRecuperada = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
 			
+			//Se for S3 retorna uma url
 			if (fotoRecuperada.temUrl()) {
 				return ResponseEntity
 						.status(HttpStatus.FOUND)
 						.header(HttpHeaders.LOCATION, fotoRecuperada.getUrl())
 						.build();
 			} else {
+				//Se for Local retorna um InputStream
 				return ResponseEntity.ok()
 						.contentType(mediaTypeFoto)
 						.body(new InputStreamResource(fotoRecuperada.getInputStream()));

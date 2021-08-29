@@ -27,14 +27,14 @@ public class S3FotoStorageService implements FotoStorageService {
 	@Autowired
 	private StorageProperties storageProperties;
 	
+	//Retorna a URL de recuparação da imagem no S3 da Amazon
 	@Override
 	public FotoRecuperada recuperar(String nomeArquivo) {
 		String caminhoArquivo = getCaminhoArquivo(nomeArquivo);
 		
 		URL url = amazonS3.getUrl(storageProperties.getS3().getBucket(), caminhoArquivo);
 		
-		return FotoRecuperada.builder()
-				.url(url.toString()).build();
+		return FotoRecuperada.builder().url(url.toString()).build();
 	}
 
 	@Override

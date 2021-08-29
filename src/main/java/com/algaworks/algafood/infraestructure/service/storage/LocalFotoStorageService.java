@@ -53,6 +53,7 @@ public class LocalFotoStorageService implements FotoStorageService {
 					.build();
 			
 			return fotoRecuperada;
+			
 		} catch (Exception e) {
 			throw new StorageException("Não foi possível recuperar arquivo.", e);
 		}
