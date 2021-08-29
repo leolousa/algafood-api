@@ -25,6 +25,7 @@ public class StorageConfig {
 	@Autowired
 	private StorageProperties storageProperties;
 	
+	// Esta anotação faz com que o bean seja criado apenas se uma condição for satisfeita
 	@Bean
 	@ConditionalOnProperty(name = "algafood.storage.tipo", havingValue = "s3")
 	public AmazonS3 amazonS3() {
@@ -38,6 +39,7 @@ public class StorageConfig {
 				.build();
 	}
 	
+	// Método que escolhe qual a implementação de Storage estamos utilizando
 	@Bean
 	public FotoStorageService fotoStorageService() {
 		if (TipoStorage.S3.equals(storageProperties.getTipo())) {
