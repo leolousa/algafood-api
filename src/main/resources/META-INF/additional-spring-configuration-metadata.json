@@ -33,5 +33,10 @@
     "name": "algafood.storage.s3.regiao",
     "type": "java.lang.String",
     "description": "A description for 'algafood.storage.s3.regiao'"
+  },
+  {
+    "name": "algafood.email.sandbox.destinatario",
+    "type": "java.lang.String",
+    "description": "A description for 'algafood.email.sandbox.destinatario'"
   }
 ]}
