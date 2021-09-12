@@ -32,11 +32,16 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/cozinhas", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CozinhaController implements CozinhaControllerOpenApi {
 
+	//Variável estatica para logar os métodos. Caso para uso sem a anotação @Slf4j 
+	//private static final Logger logger = LoggerFactory.getLogger(CozinhaController.class);
+	
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
@@ -52,6 +57,9 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 	@ApiOperation("Lista as cozinhas")
 	@GetMapping
 	public Page<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
+		
+		log.info("Consultado cozinhas com paginação de {} registros...", pageable.getPageSize());
+		
 	    Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
 	    List<CozinhaModel> cozinhasModel = cozinhaModelAssembler.toCollectionModel(cozinhasPage.getContent());
 	    
