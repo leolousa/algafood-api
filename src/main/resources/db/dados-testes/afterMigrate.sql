@@ -122,7 +122,7 @@ insert into usuario (id, nome, email, senha, data_cadastro) values
 (6, 'Débora Mendonça', 'clinicafundamento+debora@gmail.com', '$2a$12$Sgax7zSBZn1j2H93jUNwpOs13x.3oBgttbG45q7LVGE7jVJHF1reu', utc_timestamp),
 (7, 'Carlos Lima', 'clinicafundamento+carlos@gmail.com', '$2a$12$Sgax7zSBZn1j2H93jUNwpOs13x.3oBgttbG45q7LVGE7jVJHF1reu', utc_timestamp);
 
-insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (1, 2), (2, 2);
+insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (1, 2), (2, 2), (3, 3), (4, 4);
 
 insert into restaurante_usuario_responsavel (restaurante_id, usuario_id) values (1, 5), (3, 5);
 
