@@ -37,7 +37,7 @@ public @interface CheckSecurity {
 		@Target(METHOD)
 		public @interface PodeConsultar { }
 		
-		@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
+		@PreAuthorize("hasAuthority('EDITAR_RESTAURANTES')")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeEditar { }

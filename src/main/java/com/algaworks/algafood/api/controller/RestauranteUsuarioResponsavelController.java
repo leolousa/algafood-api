@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.api.assembler.UsuarioModelAssembler;
 import com.algaworks.algafood.api.model.UsuarioModel;
 import com.algaworks.algafood.api.openapi.controller.RestauranteUsuarioResponsavelControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
@@ -31,6 +32,7 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
     @Autowired
     private UsuarioModelAssembler usuarioModelAssembler;
     
+    @CheckSecurity.Restaurantes.PodeConsultar
     @ApiOperation("Lista os usuários responsáveis pelo restaurante por ID")
     @GetMapping
     public List<UsuarioModel> listar(@PathVariable Long restauranteId) {
@@ -39,6 +41,7 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
         return usuarioModelAssembler.toCollectionModel(restaurante.getResponsaveis());
     }
     
+    @CheckSecurity.Restaurantes.PodeEditar
     @ApiOperation("Esclui um usuário por ID de um restaurante por ID")
     @DeleteMapping("/{usuarioId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -46,6 +49,7 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
         cadastroRestaurante.desassociarResponsavel(restauranteId, usuarioId);
     }
     
+    @CheckSecurity.Restaurantes.PodeEditar
     @ApiOperation("Associa um usuário responsável por ID a um restaurante por ID")
     @PutMapping("/{usuarioId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

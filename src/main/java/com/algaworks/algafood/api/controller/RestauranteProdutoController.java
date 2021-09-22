@@ -22,6 +22,7 @@ import com.algaworks.algafood.api.assembler.ProdutoModelAssembler;
 import com.algaworks.algafood.api.model.ProdutoModel;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
 import com.algaworks.algafood.api.openapi.controller.RestauranteProdutoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Produto;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.ProdutoRepository;
@@ -49,6 +50,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     @Autowired
     private ProdutoInputDisassembler produtoInputDisassembler;
     
+    @CheckSecurity.Restaurantes.PodeConsultar
     @ApiOperation("Lista produtos de um restaurante por ID")
     @GetMapping
     public List<ProdutoModel> listar(@PathVariable Long restauranteId,
@@ -66,6 +68,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
         return produtoModelAssembler.toCollectionModel(todosProdutos);
     }
     
+    @CheckSecurity.Restaurantes.PodeConsultar
     @ApiOperation("Busca um produto por ID de um restaurante por ID")
     @GetMapping("/{produtoId}")
     public ProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
@@ -74,6 +77,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
         return produtoModelAssembler.toModel(produto);
     }
     
+    @CheckSecurity.Restaurantes.PodeEditar
     @ApiOperation("Adiciona um novo produto a um restaurante por ID")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -89,6 +93,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
         return produtoModelAssembler.toModel(produto);
     }
     
+    @CheckSecurity.Restaurantes.PodeEditar
     @ApiOperation("Atualiza um produto por ID de um restaurante por ID")
     @PutMapping("/{produtoId}")
     public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
