@@ -23,6 +23,7 @@ import com.algaworks.algafood.api.model.input.SenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioComSenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.api.openapi.controller.UsuarioControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
@@ -45,6 +46,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
     @Autowired
     private UsuarioInputDisassembler usuarioInputDisassembler;
     
+    @CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
     @ApiOperation("Lista usuários")
     @GetMapping
     public List<UsuarioModel> listar() {
@@ -53,6 +55,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
         return usuarioModelAssembler.toCollectionModel(todasUsuarios);
     }
     
+    @CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
     @ApiOperation("Busca usuário por ID")
     @GetMapping("/{usuarioId}")
     public UsuarioModel buscar(@PathVariable Long usuarioId) {
@@ -61,6 +64,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
         return usuarioModelAssembler.toModel(usuario);
     }
     
+    @CheckSecurity.UsuariosGruposPermissoes.PodeEditar
     @ApiOperation("Adiciona um novo usuário")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -71,6 +75,7 @@ public class UsuarioController implements UsuarioControllerOpenApi {
         return usuarioModelAssembler.toModel(usuario);
     }
     
+    @CheckSecurity.UsuariosGruposPermissoes.PodeEditar
     @ApiOperation("Atualiza um usuário por ID")
     @PutMapping("/{usuarioId}")
     public UsuarioModel atualizar(@PathVariable Long usuarioId,

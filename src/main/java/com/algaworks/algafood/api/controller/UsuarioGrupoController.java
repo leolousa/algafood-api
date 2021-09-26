@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.api.assembler.GrupoModelAssembler;
 import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.api.openapi.controller.UsuarioGrupoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
@@ -31,6 +32,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
     @Autowired
     private GrupoModelAssembler grupoModelAssembler;
     
+    @CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
     @ApiOperation("Lista os grupos de usuários")
     @GetMapping
     public List<GrupoModel> listar(@PathVariable Long usuarioId) {
@@ -39,6 +41,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
         return grupoModelAssembler.toCollectionModel(usuario.getGrupos());
     }
     
+    @CheckSecurity.UsuariosGruposPermissoes.PodeEditar
     @ApiOperation("Exclui um usuário por ID")
     @DeleteMapping("/{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -46,6 +49,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
         cadastroUsuario.desassociarGrupo(usuarioId, grupoId);
     }
     
+    @CheckSecurity.UsuariosGruposPermissoes.PodeEditar
     @ApiOperation("Associa um usuário por ID a um grupo por ID")
     @PutMapping("/{grupoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

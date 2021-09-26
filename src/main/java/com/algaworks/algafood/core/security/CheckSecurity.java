@@ -71,7 +71,7 @@ public @interface CheckSecurity {
 		public @interface PodeCriar { }
 
 		@PreAuthorize("hasAuthority('GERENCIAR_PEDIDOS') or "
-				+ "@algaSecurity.gerenciaRestauranteDoPedido(#codigoPedido)")
+				+ "@appSecurity.gerenciaRestauranteDoPedido(#codigoPedido)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeGerenciarPedidos { }
@@ -113,6 +113,32 @@ public @interface CheckSecurity {
 	    public @interface PodeEditar { }
 
 	    @PreAuthorize("isAuthenticated()")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeConsultar { }
+	    
+	}
+	
+	public @interface UsuariosGruposPermissoes {
+
+	    @PreAuthorize("@appSecurity.getUsuarioId() == #usuarioId")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeAlterarPropriaSenha { }
+	    
+	    @PreAuthorize("hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES') or "
+	            + "@appSecurity.getUsuarioId() == #usuarioId")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeAlterarUsuario { }
+
+	    @PreAuthorize("hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES')")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeEditar { }
+	    
+
+	    @PreAuthorize("hasAuthority('CONSULTAR_USUARIOS_GRUPOS_PERMISSOES')")
 	    @Retention(RUNTIME)
 	    @Target(METHOD)
 	    public @interface PodeConsultar { }
