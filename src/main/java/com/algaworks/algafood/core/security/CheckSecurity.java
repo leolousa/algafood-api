@@ -90,4 +90,32 @@ public @interface CheckSecurity {
 	    public @interface PodeConsultar { }
 	    
 	}
+	
+	public @interface Cidades {
+
+	    @PreAuthorize("hasAuthority('EDITAR_CIDADES')")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeEditar { }
+
+	    @PreAuthorize("isAuthenticated()")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeConsultar { }
+	    
+	}
+
+	public @interface Estados {
+	    
+	    @PreAuthorize("hasAuthority('EDITAR_ESTADOS')")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeEditar { }
+
+	    @PreAuthorize("isAuthenticated()")
+	    @Retention(RUNTIME)
+	    @Target(METHOD)
+	    public @interface PodeConsultar { }
+	    
+	}
 }
