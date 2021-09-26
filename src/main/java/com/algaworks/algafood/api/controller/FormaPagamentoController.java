@@ -28,6 +28,7 @@ import com.algaworks.algafood.api.assembler.FormaPagamentoModelAssembler;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.api.openapi.controller.FormaPagamentoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.CadastroFormaPagamentoService;
@@ -50,6 +51,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 	@Autowired
 	private FormaPagamentoInputDisassembler formaPagamentoInputDisassembler;
 
+	@CheckSecurity.FormasPagamento.PodeConsultar
 	@ApiOperation("Lista as formas de pagamento")
 	@GetMapping
 	public ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request) {
@@ -78,6 +80,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 				.body(formasPagamentosModel);
 	}
 
+	@CheckSecurity.FormasPagamento.PodeConsultar
 	@ApiOperation("Busca uma forma de pagamento por ID")
 	@GetMapping("/{formaPagamentoId}")
 	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId, ServletWebRequest request) {
@@ -103,6 +106,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 				.body(formaPagamentoModel);
 	}
 
+	@CheckSecurity.FormasPagamento.PodeEditar
 	@ApiOperation("Adiciona uma forma de pagamento")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -112,6 +116,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 		return formaPagamentoModelAssembler.toModel(formaPagamento);
 	}
 
+	@CheckSecurity.FormasPagamento.PodeEditar
 	@ApiOperation("Atualiza uma forma de pagamento por ID")
 	@PutMapping("/{formaPagamentoId}")
 	public FormaPagamentoModel atualizar(@PathVariable Long formaPagamentoId,
@@ -122,6 +127,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 		return formaPagamentoModelAssembler.toModel(formaPagamentoAtual);
 	}
 
+	@CheckSecurity.FormasPagamento.PodeEditar
 	@ApiOperation("Exclui uma forma de pagamento por ID")
 	@DeleteMapping("/{formaPagamentoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
