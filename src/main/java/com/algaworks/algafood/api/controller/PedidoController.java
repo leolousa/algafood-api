@@ -63,6 +63,7 @@ public class PedidoController implements PedidoControllerOpenApi {
 	@Autowired
 	private AppSecurity appSecurity;
 
+	@CheckSecurity.Pedidos.PodePesquisar
 	@ApiOperation("Lista paginada dos pedido")
 	@GetMapping
 	public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,
