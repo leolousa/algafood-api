@@ -16,6 +16,7 @@ delete from usuario_grupo;
 delete from pedido;
 delete from item_pedido;
 delete from foto_produto;
+delete from oauth_client_details;
 
 set foreign_key_checks = 1;
 
@@ -172,3 +173,16 @@ values (5, '8d774bcf-b238-42f3-aef1-5fb388754d63', 1, 3, 2, 1, '38400-200', 'Rua
 
 insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
 values (6, 5, 3, 1, 87.2, 87.2, null);
+
+
+# FLUXO_OATH2: password  - Client: algafood-web password: web123
+insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
+values ('algafood-web', null, '$2y$12$w3igMjsfS5XoAYuowoH3C.54vRFWlcXSHLjX7MwF990Kc2KKKh72e','READ,WRITE', 'password', null, null, 60 * 60 * 6, 60 * 24 * 60 * 60, null);
+
+# FLUXO_OATH2: authorization_code - Client: foodanalytics password: food123
+insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
+values ('foodanalytics', null, '$2y$12$fahbH37S2pyk1RPuIHKP.earzFmgAJJGo26rE.59vf4wwiiTKHnzO', 'READ,WRITE', 'authorization_code', 'http://www.foodanalytics.local:8082', null,  null, null, null);
+
+# FLUXO_OATH2: client_credentials - Client: faturamento password: fat123
+insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
+values ('faturamento', null, '$2a$12$zLs/zHWHCtOc6BeNiUdiSe9ozp14yBxg/RThjv9noGkNO5anZXJBy', 'READ,WRITE', 'client_credentials', null, 'CONSULTAR_PEDIDOS,GERAR_RELATORIOS', null, null, null);
