@@ -91,6 +91,7 @@ public class PedidoController implements PedidoControllerOpenApi {
 		return pedidoModelAssembler.toModel(pedido);
 	}
 
+	@CheckSecurity.Pedidos.PodeCriar
 	@ApiOperation("Adiciona um novo pedido")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
