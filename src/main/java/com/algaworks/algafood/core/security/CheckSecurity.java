@@ -52,14 +52,14 @@ public @interface CheckSecurity {
 		@PreAuthorize("isAuthenticated()")
 		//Só executa após a execução do método anotado (cuidado com efeitos colaterais usar em consultas)
 		@PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or "
-				+ "@appSecurity.getUsuarioId() == returnObject.cliente.id or "
+				+ "@appSecurity.usuarioAutenticadoIgual(returnObject.cliente.id) or "
 				+ "@appSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeBuscar { }
 		
 		@PreAuthorize("(hasAuthority('CONSULTAR_PEDIDOS') or " 
-				+ "@appSecurity.getUsuarioId() == #filtro.clienteId or"
+				+ "@appSecurity.usuarioAutenticadoIgual(#filtro.clienteId) or"
 				+ "@appSecurity.gerenciaRestaurante(#filtro.restauranteId))")
 		@Retention(RUNTIME)
 		@Target(METHOD)
@@ -121,13 +121,13 @@ public @interface CheckSecurity {
 	
 	public @interface UsuariosGruposPermissoes {
 
-	    @PreAuthorize("@appSecurity.getUsuarioId() == #usuarioId")
+	    @PreAuthorize("@appSecurity.usuarioAutenticadoIgual(#usuarioId)")
 	    @Retention(RUNTIME)
 	    @Target(METHOD)
 	    public @interface PodeAlterarPropriaSenha { }
 	    
 	    @PreAuthorize("hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES') or "
-	            + "@appSecurity.getUsuarioId() == #usuarioId")
+	            + "@appSecurity.usuarioAutenticadoIgual(#usuarioId)")
 	    @Retention(RUNTIME)
 	    @Target(METHOD)
 	    public @interface PodeAlterarUsuario { }
