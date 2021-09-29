@@ -10,7 +10,8 @@ import com.nimbusds.jose.jwk.JWKSet;
 
 /**
  * Classe Controller que expõe o Endpoint
- * do JWK
+ * do JWK - Ele expõe a chave pública
+ * para validação do Access Token
  * 
  * @author Leonardo
  *
