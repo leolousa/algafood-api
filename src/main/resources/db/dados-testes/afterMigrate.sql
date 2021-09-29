@@ -181,7 +181,7 @@ values ('algafood-web', null, '$2y$12$w3igMjsfS5XoAYuowoH3C.54vRFWlcXSHLjX7MwF99
 
 # FLUXO_OATH2: authorization_code - Client: foodanalytics password: food123
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)
-values ('foodanalytics', null, '$2y$12$fahbH37S2pyk1RPuIHKP.earzFmgAJJGo26rE.59vf4wwiiTKHnzO', 'READ,WRITE', 'authorization_code', 'http://www.foodanalytics.local:8082', null,  null, null, null);
+values ('foodanalytics', null, '$2a$12$LENA2ogbfDDWBTDAW/jjzehMb.5XhdhAeFOIUqqzx.By0.RLknoVu', 'READ,WRITE', 'authorization_code', 'http://www.foodanalytics.local:8082', null,  null, null, null);
 
 # FLUXO_OATH2: client_credentials - Client: faturamento password: fat123
 insert into oauth_client_details (client_id, resource_ids, client_secret, scope, authorized_grant_types, web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, autoapprove)

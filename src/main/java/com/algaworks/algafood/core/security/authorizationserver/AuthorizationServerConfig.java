@@ -73,7 +73,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.authenticationManager(authManager)
 			.userDetailsService(userDetailService)
 			.reuseRefreshTokens(false) //Reutilizar o refresh_token
-			.accessTokenConverter(jwtAccessTokenConverter()) // Utiliza nosso métod para gerar Tokens JWT Transparent
+			.accessTokenConverter(jwtAccessTokenConverter()) // Utiliza nosso método para gerar Tokens JWT Transparent
 			.tokenEnhancer(enhancerChain)
 			.approvalStore(approvalStore(endpoints.getTokenStore())) // Para retornar a aprovação granular do scope
 			.tokenGranter(tokenGranter(endpoints)); 
@@ -102,7 +102,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	    return jwtAccessTokenConverter;
 	}
 	
-	// Método que instancia o Autorization Code com PKCE
+	// Método que instancia o TokenGranter para uso do fluxo Autorization Code com PKCE
 	private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints) {
 		var pkceAuthorizationCodeTokenGranter = new PkceAuthorizationCodeTokenGranter(endpoints.getTokenServices(),
 				endpoints.getAuthorizationCodeServices(), endpoints.getClientDetailsService(),

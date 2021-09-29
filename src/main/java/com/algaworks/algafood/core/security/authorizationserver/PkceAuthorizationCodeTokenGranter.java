@@ -16,7 +16,7 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenG
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 /**
  * Classe do Autorization Server com 
- * o fluxo Authorization Code com PKCE
+ * o fluxo Authorization Code que adiciona o PKCE
  * 
  * @author Leonardo
  *

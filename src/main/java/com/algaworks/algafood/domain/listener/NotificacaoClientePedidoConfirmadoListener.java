@@ -32,7 +32,7 @@ public class NotificacaoClientePedidoConfirmadoListener {
 		Pedido pedido = event.getPedido();
 		var mensagem = Mensagem.builder()
 				.assunto(pedido.getRestaurante().getNome() + " - Perido confirmado!")
-				.corpo("pedido-confirmado.html").variavel("pedido", pedido)
+				.corpo("emails/pedido-confirmado.html").variavel("pedido", pedido)
 				.destinatarios(Set.of(pedido.getCliente().getEmail())).build();
 
 		envioEmail.enviar(mensagem);

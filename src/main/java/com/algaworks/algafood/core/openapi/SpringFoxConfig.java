@@ -43,7 +43,6 @@ import springfox.documentation.service.GrantType;
 import springfox.documentation.service.ResourceOwnerPasswordCredentialsGrant;
 import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.service.SecurityReference;
-import springfox.documentation.service.SecurityReference.SecurityReferenceBuilder;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
