@@ -9,8 +9,11 @@ FROM openjdk:11-jre-slim
 # Setamos o diretório da aplicação (se não existir ele cria) 
 WORKDIR /app
 
+# Define uma variável que pode ser passada em tempo de Build (neste caso o nome do arquivo da variável JAR_FILE do pom
+ARG JAR_FILE
+
 # Copia o arquivo da aplicação pra dentro da imagem
-COPY target/*.jar /app/api.jar
+COPY target/${JAR_FILE} /app/api.jar
 
 # Define a porta que o container deve escutar quando levantar a aplicação
 EXPOSE 8080
