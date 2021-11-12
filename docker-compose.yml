@@ -6,13 +6,13 @@ networks:
 
 services:
   algafood-mysql:
-    image: mysql:5.7
+    image: algafood-mysql:5.7
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "3306:3306"
     networks:
-      - algafood-net
+      - algafood-network
   algafood-api:
     image: algafood-api
     environment:
@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - algafood-net
+      - algafood-network
     depends_on:
       - algafood-mysql
       
