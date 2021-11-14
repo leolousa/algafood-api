@@ -1,18 +1,25 @@
+# Dockerfile da API
 version: "3.9"
 
+# Rede
 networks:
-  algafood-net:
+  algafood-network:
     driver: bridge
 
+# Serviços (cada container que se quer levantar)
 services:
+
+  # MySQL
   algafood-mysql:
-    image: algafood-mysql:5.7
+    image: mysql:5.7
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "3306:3306"
     networks:
       - algafood-network
+      
+  # API
   algafood-api:
     image: algafood-api
     environment:
