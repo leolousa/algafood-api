@@ -12,8 +12,12 @@ WORKDIR /app
 # Define uma variável que pode ser passada em tempo de Build (neste caso o nome do arquivo da variável JAR_FILE do pom
 ARG JAR_FILE
 
-# Copia o arquivo da aplicação pra dentro da imagem
+# Copia o arquivo da aplicação e o wait-for-it.sh, pra dentro da imagem
 COPY target/${JAR_FILE} /app/api.jar
+COPY wait-for-it.sh /wait-for-it.sh
+
+# Tranforma o arquivo wait-for-it.sh em um executável
+RUN chmod +x /wait-for-it.sh 
 
 # Define a porta que o container deve escutar quando levantar a aplicação
 EXPOSE 8080
